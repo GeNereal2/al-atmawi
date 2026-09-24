@@ -573,7 +573,7 @@ function getEditingItemsCount() {
 }
 
 function updateEditOrderBanner() {
-  editOrderBannerText.textContent = `✏️ عم تضيف منتجات لطلبك — بالطلب هلق ${getEditingItemsCount()} قطعة`;
+  editOrderBannerText.textContent = `✏️ انت قاعد بتضيف منتجات لطلبك— بالطلب هسا ${getEditingItemsCount()} قطعة`;
 }
 
 function startAddingToOrder() {
