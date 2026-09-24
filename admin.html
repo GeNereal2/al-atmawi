@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة الأدمن - Al-Atmawi Sweets</title>
+  <link rel="stylesheet" href="style.css?v=12" />
+</head>
+<body class="admin-page-body">
+
+  <header class="topbar">
+    <div class="container navbar admin-navbar">
+      <a href="index.html" class="logo">Al-Atmawi <span>Sweets</span></a>
+
+      <nav class="admin-nav">
+        <a href="index.html" class="admin-back-btn">← العودة للموقع</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section admin-page-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>لوحة الأدمن</h2>
+        <p>إدارة الشركات والمنتجات</p>
+      </div>
+
+      <!-- Login Box -->
+      <div id="loginBox" class="admin-auth-box">
+        <h3>تسجيل الدخول</h3>
+        <p class="admin-note" style="margin-bottom:24px">أدخل بيانات حسابك للمتابعة</p>
+
+        <form id="loginForm" class="admin-form single-column">
+          <div class="form-group">
+            <label for="loginEmail">البريد الإلكتروني</label>
+            <input type="email" id="loginEmail" required placeholder="example@email.com" />
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">كلمة المرور</label>
+            <input type="password" id="loginPassword" required placeholder="••••••••" />
+          </div>
+
+          <button type="submit" class="btn btn-primary full-btn">تسجيل الدخول</button>
+        </form>
+      </div>
+
+      <!-- Dashboard Box -->
+      <div id="dashboardBox" class="hidden">
+        <div class="dashboard-topbar">
+          <div>
+            <h3>مرحبًا، <span id="adminDisplayName">Admin</span> 👋</h3>
+            <p class="admin-note">من هنا تقدر تدير الشركات والمنتجات حسب صلاحيتك.</p>
+            <p id="adminRoleLabel" class="admin-note" style="margin-top:4px;font-weight:700"></p>
+          </div>
+
+          <div class="admin-top-actions">
+            <button id="exportDataBtn" class="btn btn-outline" type="button">⬇ تصدير البيانات</button>
+            <button id="logoutBtn" class="btn btn-light" type="button">تسجيل الخروج</button>
+          </div>
+        </div>
+
+        <!-- العدادات -->
+        <div class="admin-counters">
+          <div class="admin-counter-card">
+            <span class="admin-counter-icon">🍫</span>
+            <div>
+              <strong id="counterProducts">0</strong>
+              <span>منتج</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Forms Grid -->
+        <div>
+          <!-- Product Form -->
+          <div class="panel-card" id="productFormCard">
+            <div class="panel-head">
+              <h3 id="productFormTitle">إضافة منتج جديد</h3>
+              <button id="cancelProductEditBtn" class="btn btn-light hidden" type="button">إلغاء</button>
+            </div>
+
+            <form id="productForm" class="admin-form">
+              <input type="hidden" id="productId" />
+              <input type="hidden" id="productImageData" />
+
+              <div class="form-group">
+                <label for="productName">اسم المنتج</label>
+                <input type="text" id="productName" required placeholder="اسم المنتج" />
+              </div>
+
+              <div class="form-group">
+                <label for="productDesc">الوصف / السعر</label>
+                <textarea id="productDesc" required placeholder="وصف المنتج أو السعر..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="productPrivatePrice">💼 سعر الجملة (يظهر فقط لزبائن الجملة)</label>
+                <input type="text" id="productPrivatePrice" placeholder="اختياري - اتركه فارغ ليشوفوا السعر العادي" />
+              </div>
+
+              <div class="form-group">
+                <label for="productDistributionPrice">🚚 سعر التوزيع (يظهر فقط لزبائن التوزيع)</label>
+                <input type="text" id="productDistributionPrice" placeholder="اختياري - اتركه فارغ ليشوفوا السعر العادي" />
+              </div>
+
+              <div class="form-group">
+                <label for="productListingType">مكان عرض المنتج</label>
+                <select id="productListingType" required>
+                  <option value="normal">منتج عادي (يظهر ضمن قسم المنتجات)</option>
+                  <option value="offer">🔥 عرض خاص (يظهر بقسم العروض بالأعلى)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="productAvailability">حالة توفر المنتج</label>
+                <select id="productAvailability" required>
+                  <option value="available">✅ متوفر</option>
+                  <option value="unavailable">❌ غير متوفر حاليًا</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="productCategory">نوع المنتج</label>
+                <select id="productCategory" required>
+                  <option value="drinks">مشروبات</option>
+                  <option value="chips">شيبسات</option>
+                  <option value="chocolate">شوكولاتات</option>
+                  <option value="jelly">جلي وجوميات</option>
+                  <option value="marshmallow">مارشميلو</option>
+                  <option value="toffee">توفي وملبسات</option>
+                  <option value="bigla">بيجلا</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="productImageFile">صورة المنتج من الجهاز</label>
+                <input type="file" id="productImageFile" accept=".jpg,.jpeg,.png" />
+              </div>
+
+              <div class="form-group">
+                <label for="productImage">أو رابط الصورة</label>
+                <input type="url" id="productImage" placeholder="اختياري إذا لم ترفع صورة" />
+              </div>
+
+              <div class="image-preview-box">
+                <p>معاينة الصورة</p>
+                <img id="productPreview" class="image-preview hidden" alt="معاينة صورة المنتج" />
+              </div>
+
+              <button type="submit" class="btn btn-primary full-btn" id="productSubmitBtn">إضافة المنتج</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Lists Grid -->
+        <div class="admin-panels-gap">
+          <div class="panel-card">
+            <div class="panel-head">
+              <h3>إدارة المنتجات</h3>
+            </div>
+            <div class="form-group" style="margin-bottom:16px">
+              <input type="search" id="adminProductsSearch" placeholder="🔍 ابحث باسم المنتج..." />
+            </div>
+            <div id="adminProductsList" class="admin-items-list"></div>
+          </div>
+
+          <div class="panel-card">
+            <div class="panel-head">
+              <h3>📦 الطلبات <span id="ordersCountBadge" class="admin-count-badge hidden">0</span></h3>
+              <button id="refreshOrdersBtn" class="btn btn-light" type="button">تحديث</button>
+            </div>
+            <div class="form-group" style="margin-bottom:16px">
+              <input type="search" id="adminOrdersSearch" placeholder="🔍 ابحث باسم الزبون..." />
+            </div>
+            <div id="adminOrdersList" class="admin-items-list"></div>
+          </div>
+
+          <div class="panel-card">
+            <div class="panel-head">
+              <h3>👥 الزبائن وفئات الأسعار</h3>
+              <button id="refreshCustomersBtn" class="btn btn-light" type="button">تحديث</button>
+            </div>
+            <p class="admin-note" style="margin-bottom:14px">اختر فئة كل زبون: العادي بيشوف السعر العادي، الجملة بيشوف سعر الجملة، والتوزيع بيشوف سعر التوزيع.</p>
+            <div class="form-group" style="margin-bottom:16px">
+              <input type="search" id="adminCustomersSearch" placeholder="🔍 ابحث بالاسم أو الإيميل أو الرقم..." />
+            </div>
+            <div id="adminCustomersList" class="admin-items-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Confirm Delete Modal -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-box" style="max-width:420px">
+      <div class="modal-info" style="padding:36px 32px 32px;text-align:center">
+        <div style="font-size:3rem;margin-bottom:16px">🗑️</div>
+        <h3 id="confirmModalTitle" style="margin-bottom:12px;font-size:1.3rem"></h3>
+        <p id="confirmModalMsg" style="display:block;margin-bottom:28px"></p>
+        <div style="display:flex;gap:12px;justify-content:center">
+          <button id="confirmModalCancel" class="btn btn-light" type="button" style="min-width:110px">إلغاء</button>
+          <button id="confirmModalOk" class="btn" type="button" style="min-width:110px;background:var(--danger);color:#fff;border-color:transparent">حذف</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="admin.js?v=20"></script>
+  <script>
+    /* Confirm Modal Helper */
+    window.showConfirmModal = function(title, msg) {
+      return new Promise(resolve => {
+        const overlay  = document.getElementById("confirmModal");
+        const titleEl  = document.getElementById("confirmModalTitle");
+        const msgEl    = document.getElementById("confirmModalMsg");
+        const cancelBtn= document.getElementById("confirmModalCancel");
+        const okBtn    = document.getElementById("confirmModalOk");
+
+        titleEl.textContent = title;
+        msgEl.textContent   = msg;
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+
+        function close(result) {
+          overlay.classList.remove("active");
+          document.body.style.overflow = "";
+          cancelBtn.removeEventListener("click", onCancel);
+          okBtn.removeEventListener("click", onOk);
+          overlay.removeEventListener("click", onOverlay);
+          resolve(result);
+        }
+
+        function onCancel()  { close(false); }
+        function onOk()      { close(true);  }
+        function onOverlay(e){ if(e.target===overlay) close(false); }
+
+        cancelBtn.addEventListener("click", onCancel);
+        okBtn.addEventListener("click", onOk);
+        overlay.addEventListener("click", onOverlay);
+      });
+    };
+  </script>
+</body>
+</html>
