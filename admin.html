@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>لوحة الأدمن - Al-Atmawi Sweets</title>
-  <link rel="stylesheet" href="style.css?v=13" />
+  <link rel="stylesheet" href="style.css?v=14" />
 </head>
 <body class="admin-page-body">
 
@@ -167,6 +167,33 @@
 
           <div class="panel-card">
             <div class="panel-head">
+              <h3>📑 جدول الأسعار الشامل</h3>
+              <button id="refreshPriceMatrixBtn" class="btn btn-light" type="button">تحديث</button>
+            </div>
+            <p class="admin-note" style="margin-bottom:14px">عدّل أي سعر مباشرة من الجدول، وبينحفظ تلقائيًا لما تطلع من الخانة أو تكبس Enter. خانة الجملة أو التوزيع الفاضية معناها إنه زبائن هاي الفئة بيشوفوا السعر العادي.</p>
+            <div class="price-matrix-toolbar">
+              <input type="search" id="priceMatrixSearch" placeholder="🔍 ابحث باسم المنتج..." />
+              <select id="priceMatrixCategory">
+                <option value="">كل الأقسام</option>
+              </select>
+            </div>
+            <div class="price-matrix-wrap">
+              <table class="price-matrix">
+                <thead>
+                  <tr>
+                    <th>المنتج</th>
+                    <th>السعر العادي</th>
+                    <th>💼 الجملة</th>
+                    <th>🚚 التوزيع</th>
+                  </tr>
+                </thead>
+                <tbody id="priceMatrixBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="panel-head">
               <h3>📦 الطلبات <span id="ordersCountBadge" class="admin-count-badge hidden">0</span></h3>
               <button id="refreshOrdersBtn" class="btn btn-light" type="button">تحديث</button>
             </div>
@@ -207,7 +234,7 @@
     </div>
   </div>
 
-  <script type="module" src="admin.js?v=21"></script>
+  <script type="module" src="admin.js?v=22"></script>
   <script>
     /* Confirm Modal Helper */
     window.showConfirmModal = function(title, msg) {
