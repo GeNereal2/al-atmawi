@@ -1054,6 +1054,7 @@ if (refreshOrdersBtn) {
 
 async function refreshAllAdminData() {
   await loadInitialAdminProducts();
+  await loadPriceMatrix();
   renderDashboardData();
   updateCounters();
 }
@@ -1197,6 +1198,211 @@ if (refreshCustomersBtn) {
 }
 
 /* =========================
+   Price Matrix (جدول الأسعار الشامل)
+   عادي = products.desc | جملة = privatePricing | توزيع = distributionPricing
+========================= */
+const PRICE_MATRIX_COLLECTIONS = {
+  wholesale: "privatePricing",
+  distribution: "distributionPricing"
+};
+
+let matrixWholesale = {};    // productId -> سعر الجملة
+let matrixDistribution = {}; // productId -> سعر التوزيع
+let matrixSearchTerm = "";
+let matrixCategory = "";
+let matrixLoading = false;
+
+const priceMatrixBody = document.getElementById("priceMatrixBody");
+const priceMatrixSearch = document.getElementById("priceMatrixSearch");
+const priceMatrixCategory = document.getElementById("priceMatrixCategory");
+const refreshPriceMatrixBtn = document.getElementById("refreshPriceMatrixBtn");
+
+if (priceMatrixCategory) {
+  Object.entries(CATEGORY_LABELS).forEach(([catId, info]) => {
+    const opt = document.createElement("option");
+    opt.value = catId;
+    opt.textContent = `${info.icon} ${info.label}`;
+    priceMatrixCategory.appendChild(opt);
+  });
+}
+
+async function loadPriceMatrix() {
+  if (!isOwner(auth.currentUser) || !priceMatrixBody) return;
+
+  matrixLoading = true;
+  renderPriceMatrix();
+
+  try {
+    const [wholesaleSnap, distSnap] = await Promise.all([
+      getDocs(collection(db, "privatePricing")),
+      getDocs(collection(db, "distributionPricing"))
+    ]);
+    matrixWholesale = {};
+    matrixDistribution = {};
+    wholesaleSnap.docs.forEach(d => { matrixWholesale[d.id] = d.data().price || ""; });
+    distSnap.docs.forEach(d => { matrixDistribution[d.id] = d.data().price || ""; });
+  } catch (error) {
+    console.error(error);
+  } finally {
+    matrixLoading = false;
+    renderPriceMatrix();
+  }
+}
+
+function getMatrixValue(product, field) {
+  if (field === "normal") return product.desc || "";
+  if (field === "wholesale") return matrixWholesale[product.id] || "";
+  return matrixDistribution[product.id] || "";
+}
+
+function renderPriceMatrix() {
+  if (!priceMatrixBody) return;
+
+  if (matrixLoading && !allFilteredProducts.length) {
+    priceMatrixBody.innerHTML = `<tr><td colspan="4" class="price-matrix-empty">جاري التحميل...</td></tr>`;
+    return;
+  }
+
+  const term = matrixSearchTerm.trim().toLowerCase();
+  const rows = allFilteredProducts.filter(p =>
+    (!term || (p.name || "").toLowerCase().includes(term)) &&
+    (!matrixCategory || p.category === matrixCategory)
+  );
+
+  if (!rows.length) {
+    priceMatrixBody.innerHTML = `<tr><td colspan="4" class="price-matrix-empty">${term || matrixCategory ? "ما في منتجات مطابقة" : "لا توجد منتجات حاليًا"}</td></tr>`;
+    return;
+  }
+
+  const cell = (product, field, placeholder) => {
+    const value = getMatrixValue(product, field);
+    return `
+      <td>
+        <input
+          type="text"
+          class="price-matrix-input"
+          value="${escapeHtml(value)}"
+          placeholder="${placeholder}"
+          data-matrix-product="${product.id}"
+          data-matrix-field="${field}"
+          data-matrix-original="${escapeHtml(value)}"
+        />
+      </td>`;
+  };
+
+  priceMatrixBody.innerHTML = rows.map(product => `
+    <tr>
+      <td class="price-matrix-name">
+        <span class="price-matrix-icon">${getCategoryInfo(product.category).icon}</span>
+        <span>${escapeHtml(product.name)}</span>
+      </td>
+      ${cell(product, "normal", "مطلوب")}
+      ${cell(product, "wholesale", "= العادي")}
+      ${cell(product, "distribution", "= العادي")}
+    </tr>
+  `).join("");
+
+  priceMatrixBody.querySelectorAll(".price-matrix-input").forEach(input => {
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        input.blur();
+      } else if (e.key === "Escape") {
+        input.value = input.dataset.matrixOriginal || "";
+        input.blur();
+      }
+    });
+    input.addEventListener("blur", () => saveMatrixCell(input));
+  });
+}
+
+async function saveMatrixCell(input) {
+  if (!isOwner(auth.currentUser)) return;
+
+  const productId = input.dataset.matrixProduct;
+  const field = input.dataset.matrixField;
+  const original = input.dataset.matrixOriginal || "";
+  const value = input.value.trim();
+
+  if (value === original) return;
+
+  // السعر العادي ما بينفع يكون فاضي
+  if (field === "normal" && !value) {
+    input.value = original;
+    flashMatrixCell(input, "error");
+    return;
+  }
+
+  input.disabled = true;
+  input.classList.remove("is-saved", "is-error");
+  input.classList.add("is-saving");
+
+  try {
+    if (field === "normal") {
+      await updateDoc(doc(db, "products", productId), {
+        desc: value,
+        updatedAt: serverTimestamp()
+      });
+      [products, allFilteredProducts].forEach(list => {
+        const item = list.find(p => String(p.id) === String(productId));
+        if (item) item.desc = value;
+      });
+    } else {
+      const collectionName = PRICE_MATRIX_COLLECTIONS[field];
+      const store = field === "wholesale" ? matrixWholesale : matrixDistribution;
+      if (value) {
+        await setDoc(doc(db, collectionName, productId), {
+          price: value,
+          updatedAt: serverTimestamp()
+        });
+        store[productId] = value;
+      } else {
+        await deleteDoc(doc(db, collectionName, productId));
+        delete store[productId];
+      }
+    }
+
+    input.dataset.matrixOriginal = value;
+    input.value = value;
+    flashMatrixCell(input, "saved");
+  } catch (error) {
+    console.error(error);
+    input.value = original;
+    flashMatrixCell(input, "error");
+  } finally {
+    input.disabled = false;
+    input.classList.remove("is-saving");
+  }
+}
+
+function flashMatrixCell(input, state) {
+  const cls = state === "saved" ? "is-saved" : "is-error";
+  input.classList.add(cls);
+  setTimeout(() => input.classList.remove(cls), 1600);
+}
+
+if (priceMatrixSearch) {
+  priceMatrixSearch.addEventListener("input", () => {
+    matrixSearchTerm = priceMatrixSearch.value;
+    renderPriceMatrix();
+  });
+}
+
+if (priceMatrixCategory) {
+  priceMatrixCategory.addEventListener("change", () => {
+    matrixCategory = priceMatrixCategory.value;
+    renderPriceMatrix();
+  });
+}
+
+if (refreshPriceMatrixBtn) {
+  refreshPriceMatrixBtn.addEventListener("click", async () => {
+    await loadInitialAdminProducts();
+    await loadPriceMatrix();
+  });
+}
+
+/* =========================
    Auth State
 ========================= */
 onAuthStateChanged(auth, async (user) => {
@@ -1222,6 +1428,7 @@ onAuthStateChanged(auth, async (user) => {
   updateAdminUI(user);
 
   await loadInitialAdminProducts();
+  await loadPriceMatrix();
   await loadOrders();
   await loadCustomers();
 
