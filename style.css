@@ -1534,3 +1534,72 @@ footer {
 .customer-delete-btn { color:#a8281a; border-color:rgba(168,40,26,0.25); }
 .customer-delete-btn:hover { background:#fdeae7; border-color:rgba(168,40,26,0.45); }
 [data-theme="dark"] .customer-delete-btn { color:#ff8a7a; }
+
+/* ===== جدول الأسعار الشامل (لوحة الأدمن) ===== */
+.price-matrix-toolbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+.price-matrix-toolbar input,
+.price-matrix-toolbar select {
+  flex:1;
+  min-width:180px;
+  border:1.5px solid rgba(78,47,36,0.13);
+  background:#fffdfc;
+  border-radius:var(--radius-sm);
+  padding:12px 16px;
+  font-size:0.95rem;
+  outline:none;
+  color:var(--text);
+}
+.price-matrix-toolbar input:focus,
+.price-matrix-toolbar select:focus { border-color:var(--gold); box-shadow:0 0 0 4px rgba(201,151,62,0.1); }
+.price-matrix-wrap {
+  max-height:560px;
+  overflow:auto;
+  border:1px solid rgba(201,151,62,0.15);
+  border-radius:var(--radius-sm);
+}
+.price-matrix { width:100%; min-width:620px; border-collapse:collapse; font-size:0.9rem; }
+.price-matrix thead th {
+  position:sticky;
+  top:0;
+  z-index:1;
+  background:var(--gold-pale);
+  color:var(--choco-dark);
+  font-weight:800;
+  text-align:start;
+  padding:12px 14px;
+  border-bottom:1px solid rgba(201,151,62,0.25);
+  white-space:nowrap;
+}
+.price-matrix tbody tr:nth-child(even) { background:rgba(201,151,62,0.04); }
+.price-matrix tbody tr:hover { background:rgba(201,151,62,0.08); }
+.price-matrix td { padding:8px 14px; border-bottom:1px solid rgba(78,47,36,0.06); vertical-align:middle; }
+.price-matrix-name { display:flex; align-items:center; gap:8px; font-weight:700; color:var(--choco-dark); min-width:200px; }
+.price-matrix-icon { flex-shrink:0; }
+.price-matrix-input {
+  width:100%;
+  min-width:110px;
+  border:1.5px solid transparent;
+  background:transparent;
+  border-radius:10px;
+  padding:8px 10px;
+  font-size:0.9rem;
+  font-weight:700;
+  color:var(--text);
+  outline:none;
+  transition:border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.price-matrix-input:hover { border-color:rgba(78,47,36,0.15); background:#fff; }
+.price-matrix-input:focus { border-color:var(--gold); background:#fff; box-shadow:0 0 0 3px rgba(201,151,62,0.15); }
+.price-matrix-input::placeholder { color:var(--muted); font-weight:500; opacity:0.6; }
+.price-matrix-input.is-saving { opacity:0.55; }
+.price-matrix-input.is-saved { border-color:#2b8a3e; background:#e5f7ea; }
+.price-matrix-input.is-error { border-color:var(--danger); background:#fdeae7; }
+.price-matrix-empty { text-align:center; color:var(--muted); padding:24px !important; }
+[data-theme="dark"] .price-matrix-toolbar input,
+[data-theme="dark"] .price-matrix-toolbar select { background:#2a1a10; color:#f0e8df; border-color:rgba(240,232,223,0.14); }
+[data-theme="dark"] .price-matrix thead th { background:#2a1a10; color:#f0e8df; }
+[data-theme="dark"] .price-matrix-name { color:#f0e8df; }
+[data-theme="dark"] .price-matrix-input:hover,
+[data-theme="dark"] .price-matrix-input:focus { background:#2a1a10; }
+[data-theme="dark"] .price-matrix-input.is-saved { background:rgba(43,138,62,0.18); }
+[data-theme="dark"] .price-matrix-input.is-error { background:rgba(187,45,59,0.18); }
