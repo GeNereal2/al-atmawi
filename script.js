@@ -178,8 +178,8 @@ let currentCustomerPhone = "";
 let currentCustomerRegion = "";
 
 const REGION_LABELS = {
-  west_bank: { label: "الضفة الغربية", fee: 17 },
-  jerusalem: { label: "القدس", fee: 27 },
+  west_bank: { label: "الضفة الغربية", fee: 20 },
+  jerusalem: { label: "القدس", fee: 30 },
   inside: { label: "الداخل", fee: 70 }
 };
 
