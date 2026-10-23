@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>العتماوي للسكاكر والحلويات</title>
+  <meta name="description" content="أجود أنواع الشوكولاتة والسكاكر من أشهر الشركات العالمية" />
+  <meta name="theme-color" content="#2f1b14" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Al-Atmawi" />
+
+  <!-- Open Graph / Facebook / WhatsApp Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://genereal2.github.io/Al-Atmawi/index.html" />
+  <meta property="og:title" content="العتماوي للسكاكر والحلويات | Al-Atmawi Sweets" />
+  <meta property="og:description" content="أجود أنواع الشوكولاتة والسكاكر والمشروبات من أشهر الشركات العالمية" />
+  <meta property="og:image" content="https://genereal2.github.io/Al-Atmawi/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="ar_AR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="العتماوي للسكاكر والحلويات | Al-Atmawi Sweets" />
+  <meta name="twitter:description" content="أجود أنواع الشوكولاتة والسكاكر والمشروبات من أشهر الشركات العالمية" />
+  <meta name="twitter:image" content="https://genereal2.github.io/Al-Atmawi/og-image.jpg" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://firestore.googleapis.com">
+  <link rel="modulepreload" href="firebase/firebase-app.js" />
+  <link rel="modulepreload" href="firebase/firebase-firestore.js" />
+  <link rel="modulepreload" href="firebase/firebase-auth.js" />
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=18" />
+</head>
+<body>
+
+  <header class="topbar" id="topbar">
+    <div class="container navbar">
+      <a href="index.html" class="logo">Al-Atmawi <span>Sweets</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home">الرئيسية</a></li>
+          <li><a href="#offers" class="offers-nav-link">🔥 العروض</a></li>
+          <li><a href="#products">المنتجات</a></li>
+          <li><a href="#about">من نحن</a></li>
+          <li><a href="#contact">تواصل معنا</a></li>
+          <li><a href="admin.html" class="admin-link">لوحة الأدمن</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button id="accountBtn" class="header-icon-btn" type="button" title="حسابي">
+          👤 <span id="accountBtnLabel" class="header-btn-text">دخول</span>
+        </button>
+        <button id="cartBtn" class="header-icon-btn cart-btn" type="button" title="السلة" aria-label="السلة">
+          <svg id="candyJar" class="candy-jar" viewBox="0 0 28 32" aria-hidden="true">
+            <defs><clipPath id="jarClip"><rect x="5" y="10" width="18" height="19" rx="5"/></clipPath></defs>
+            <g clip-path="url(#jarClip)">
+              <circle class="jar-candy" cx="8.6" cy="26.3" r="2.7" fill="#e85d75"/>
+              <circle class="jar-candy" cx="14" cy="26.3" r="2.7" fill="#f2b632"/>
+              <circle class="jar-candy" cx="19.4" cy="26.3" r="2.7" fill="#4fc3b6"/>
+              <circle class="jar-candy" cx="8.6" cy="21.4" r="2.7" fill="#9b6ad8"/>
+              <circle class="jar-candy" cx="14" cy="21.4" r="2.7" fill="#ff8a5b"/>
+              <circle class="jar-candy" cx="19.4" cy="21.4" r="2.7" fill="#5ba7f2"/>
+              <circle class="jar-candy" cx="11.3" cy="16.6" r="2.7" fill="#f06fb0"/>
+              <circle class="jar-candy" cx="16.7" cy="16.6" r="2.7" fill="#8fce5a"/>
+            </g>
+            <rect class="jar-glass" x="4.5" y="9.5" width="19" height="20" rx="5.5"/>
+            <path class="jar-shine" d="M8 13.5v6"/>
+            <rect class="jar-neck" x="8.5" y="7" width="11" height="3" rx="1"/>
+            <rect class="jar-lid" x="7" y="2.5" width="14" height="5" rx="1.8"/>
+          </svg>
+          <span id="cartCount" class="cart-count hidden">0</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" type="button" title="تبديل الوضع">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <h1>اكتشف عالم <em>الحلويات</em><br>اللذيذة</h1>
+        <p>نوفر أجود أنواع الشوكولاتة والسكاكر من أشهر الشركات العالمية بجودة عالية ومذاق مميز لا يُنسى.</p>
+
+        <div class="hero-buttons">
+          <a href="#products" class="btn btn-primary">تصفح المنتجات</a>
+          <a href="#contact" class="btn btn-secondary">تواصل معنا</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong data-target="500">0</strong>
+            <span>منتج متنوع</span>
+          </div>
+          <div class="hero-stat">
+            <strong data-target="100">0</strong>
+            <span>% جودة مضمونة</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="choco-drip choco-drip-hero" aria-hidden="true"></div>
+
+  <!-- ===== Offers ===== -->
+  <section class="offers-section hidden" id="offers">
+    <div class="container">
+      <div class="offers-header">
+        <span class="offers-badge">🔥 لفترة محدودة</span>
+        <h2>عروضنا الخاصة</h2>
+        <p>أقوى العروض والأسعار المميزة من Al-Atmawi Sweets</p>
+      </div>
+      <div id="offersGrid" class="offers-grid"></div>
+    </div>
+  </section>
+
+  <div class="choco-drip choco-drip-offers" aria-hidden="true"></div>
+
+  <!-- ===== Products ===== -->
+  <section class="section" id="products">
+    <div class="container">
+      <div class="section-header">
+        <h2>منتجاتنا</h2>
+        <p>استعرض تشكيلتنا من المشروبات والشيبسات والشوكولاتات</p>
+      </div>
+      <div id="productsCategories"></div>
+    </div>
+  </section>
+
+
+  <!-- ===== About ===== -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-box">
+        <div class="about-text">
+          <h2>من نحن</h2>
+          <p>في <strong>Al-Atmawi Sweets</strong> نختار لكم بعناية أجود أنواع الشوكولاتة والسكاكر والحلويات من أشهر العلامات العالمية. نؤمن بأن كل قطعة حلوى تحمل لحظة من السعادة، لذا نحرص دائمًا على تقديم جودة عالية وتنوع كبير وخدمة استثنائية تليق بثقتكم.</p>
+        </div>
+        <div class="about-features">
+          <div class="about-feature">
+            <span class="about-feature-icon">🍫</span>
+            <h4>شوكولاتة فاخرة</h4>
+            <p>من أشهر الماركات</p>
+          </div>
+          <div class="about-feature">
+            <span class="about-feature-icon">✨</span>
+            <h4>جودة عالية</h4>
+            <p>منتجات مختارة بعناية</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact-box">
+        <h2>تواصل معنا</h2>
+        <p>للاستفسار أو الطلبات، يمكنك التواصل معنا مباشرة</p>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <span class="contact-card-icon">📞</span>
+            <h3>الهاتف</h3>
+            <p><a href="tel:+970593707760">+970 593 707 760</a> <button id="copyPhoneBtn" class="copy-phone-btn" type="button" title="نسخ الرقم">📋</button></p>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card-icon">💬</span>
+            <h3>واتساب</h3>
+            <p><a href="https://wa.me/970593707760" target="_blank">راسلنا الآن</a></p>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card-icon">📘</span>
+            <h3>فيسبوك</h3>
+            <p><a href="https://www.facebook.com/Atmawe" target="_blank">صفحتنا الرسمية</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-logo">Al-Atmawi Sweets</div>
+      <p>CopyRight © Al-Atmawi Sweets 2026</p>
+      <p class="footer-legal"><a href="privacy.html">سياسة الخصوصية</a> · <a href="delete-account.html">حذف الحساب</a></p>
+    </div>
+  </footer>
+
+  <!-- Adding-to-order Banner -->
+  <div id="editOrderBanner" class="edit-order-banner hidden">
+    <span id="editOrderBannerText">✏️ اختر المنتجات يلي بدك تضيفها لطلبك</span>
+    <button id="backToEditOrderBtn" type="button">رجوع للطلب ←</button>
+  </div>
+
+  <!-- Offline / pending orders status -->
+  <div id="offlineStatusBar" class="offline-status-bar hidden" role="status" aria-live="polite">
+    <span id="offlineStatusText"></span>
+  </div>
+
+  <!-- Private Pricing Banner -->
+  <div id="privateBanner" class="private-banner hidden">
+    <span id="privateBannerText">🔒 أنت تشاهد الأسعار الخاصة</span>
+    <button id="privateLogoutBtn" type="button">تسجيل خروج</button>
+  </div>
+
+  <!-- Customer Account Modal -->
+  <div class="modal-overlay" id="accountModal">
+    <div class="modal-box" style="max-width:420px">
+      <button class="modal-close" id="accountModalCloseBtn" type="button">✕</button>
+      <div class="modal-info" style="padding:36px 32px">
+
+        <div id="customerAuthViews">
+          <div id="customerLoginView">
+            <h3 style="margin-bottom:20px">تسجيل الدخول</h3>
+            <form id="customerLoginForm" class="admin-form single-column">
+              <div class="form-group">
+                <label for="customerLoginEmail">البريد الإلكتروني</label>
+                <input type="email" id="customerLoginEmail" required placeholder="example@email.com" />
+              </div>
+              <div class="form-group">
+                <label for="customerLoginPassword">كلمة المرور</label>
+                <input type="password" id="customerLoginPassword" required placeholder="••••••••" />
+              </div>
+              <p id="customerLoginError" class="error-message hidden"></p>
+              <button type="submit" class="btn btn-primary full-btn">تسجيل الدخول</button>
+            </form>
+            <p class="admin-note" style="margin-top:16px;text-align:center">
+              ما عندك حساب؟ <button type="button" id="showSignupBtn" class="link-btn">أنشئ حساب جديد</button>
+            </p>
+          </div>
+
+          <div id="customerSignupView" class="hidden">
+            <h3 style="margin-bottom:20px">إنشاء حساب جديد</h3>
+            <form id="customerSignupForm" class="admin-form single-column">
+              <div class="form-group">
+                <label for="customerSignupName">اسمك</label>
+                <input type="text" id="customerSignupName" required placeholder="اكتب اسمك الكامل" />
+              </div>
+              <div class="form-group">
+                <label for="customerSignupEmail">البريد الإلكتروني</label>
+                <input type="email" id="customerSignupEmail" required placeholder="example@email.com" />
+              </div>
+              <div class="form-group">
+                <label for="customerSignupPhone">رقم الواتساب للتواصل</label>
+                <input type="tel" id="customerSignupPhone" inputmode="tel" required placeholder="9705xxxxxxx (أرقام فقط)" />
+              </div>
+              <div class="form-group">
+                <label for="customerSignupRegion">منطقتك</label>
+                <select id="customerSignupRegion" required>
+                  <option value="">اختر المنطقة</option>
+                  <option value="west_bank">الضفة الغربية — توصيل 20₪ للطرد</option>
+                  <option value="jerusalem">القدس — توصيل 30₪ للطرد</option>
+                  <option value="inside">الداخل — توصيل 70₪ للطرد</option>
+                </select>
+                <p class="admin-note" style="margin-top:8px">
+                  ملاحظة: الطرد الواحد يحتوي على 20-15 علبة شوكولاتة أو سكاكر مشكلة.
+                </p>
+              </div>
+              <div class="form-group">
+                <label for="customerSignupPassword">كلمة المرور</label>
+                <input type="password" id="customerSignupPassword" required placeholder="6 أحرف على الأقل" />
+              </div>
+              <p id="customerSignupError" class="error-message hidden"></p>
+              <button type="submit" class="btn btn-primary full-btn">إنشاء الحساب</button>
+            </form>
+            <p class="admin-note" style="margin-top:16px;text-align:center">
+              عندك حساب أصلًا؟ <button type="button" id="showLoginBtn" class="link-btn">سجل الدخول</button>
+            </p>
+          </div>
+        </div>
+
+        <div id="customerAccountView" class="hidden" style="text-align:center">
+          <div style="font-size:2.5rem;margin-bottom:10px">👤</div>
+          <h3 id="customerAccountName" style="margin-bottom:6px"></h3>
+          <p class="admin-note" id="customerAccountEmail" style="margin-bottom:20px"></p>
+          <div class="form-group" style="text-align:right">
+            <label for="customerAccountNameInput">اسمك</label>
+            <input type="text" id="customerAccountNameInput" placeholder="اكتب اسمك الكامل" />
+          </div>
+          <div class="form-group" style="text-align:right">
+            <label for="customerAccountPhone">رقم الواتساب للتواصل</label>
+            <input type="tel" id="customerAccountPhone" inputmode="tel" placeholder="9705xxxxxxx (أرقام فقط)" />
+          </div>
+          <div class="form-group" style="text-align:right">
+            <label for="customerAccountRegion">منطقتك</label>
+            <select id="customerAccountRegion">
+              <option value="">اختر المنطقة</option>
+              <option value="west_bank">الضفة الغربية — توصيل 20₪ للطرد</option>
+              <option value="jerusalem">القدس — توصيل 30₪ للطرد</option>
+              <option value="inside">الداخل — توصيل 70₪ للطرد</option>
+            </select>
+            <p class="admin-note" style="margin-top:8px">
+              ملاحظة: الطرد الواحد يحتوي على 20-15 علبة شوكولاتة أو سكاكر مشكلة.
+            </p>
+          </div>
+          <p id="customerPhoneMessage" class="error-message hidden"></p>
+          <button id="saveCustomerPhoneBtn" class="btn btn-outline full-btn" type="button" style="margin-bottom:12px">حفظ البيانات</button>
+          <button id="viewMyOrdersBtn" class="btn btn-outline full-btn" type="button" style="margin-bottom:12px">📦 طلباتي السابقة</button>
+          <button id="customerLogoutBtn" class="btn btn-light full-btn" type="button">تسجيل خروج</button>
+
+          <!-- حذف الحساب (مطلوب من Google Play) -->
+          <button id="deleteAccountBtn" class="link-btn delete-account-link" type="button">🗑️ حذف حسابي نهائيًا</button>
+          <div id="deleteAccountBox" class="delete-account-box hidden" style="text-align:right">
+            <h4>حذف الحساب نهائيًا</h4>
+            <p>رح ينمسح حساب الدخول تبعك، واسمك، ورقم الواتساب، ومنطقتك، وفئة الأسعار. هالخطوة ما بترجع.</p>
+            <p>الطلبات اللي بعثتها قبل بتضل محفوظة عندنا لأغراض المحاسبة. إذا بدك نمسحها كمان، راسلنا على الواتساب.</p>
+            <div class="form-group">
+              <label for="deleteAccountPassword">اكتب كلمة المرور للتأكيد</label>
+              <input type="password" id="deleteAccountPassword" placeholder="••••••••" autocomplete="current-password" />
+            </div>
+            <p id="deleteAccountError" class="error-message hidden"></p>
+            <button id="confirmDeleteAccountBtn" class="btn full-btn delete-account-confirm" type="button">نعم، احذف حسابي</button>
+            <button id="cancelDeleteAccountBtn" class="btn btn-light full-btn" type="button" style="margin-top:10px">تراجع</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div class="modal-overlay" id="cartModal">
+    <div class="modal-box receipt-box" style="max-width:460px">
+      <button class="modal-close" id="cartModalCloseBtn" type="button">✕</button>
+      <div class="modal-info receipt-paper">
+        <div class="receipt-head">
+          <div class="receipt-logo">Al-Atmawi <span>Sweets</span></div>
+          <div class="receipt-sub">العتماوي للسكاكر والحلويات</div>
+          <div class="receipt-meta">
+            <span>فاتورة طلب</span>
+            <span id="receiptDate"></span>
+          </div>
+        </div>
+        <div id="cartItemsList" class="cart-items-list"></div>
+        <div id="cartEmptyMessage" class="empty-message hidden">السلة فارغة</div>
+        <div id="cartSubtotalRow" class="cart-total-row hidden">
+          <span>المبلغ المطلوب (غير شامل التوصيل)</span>
+          <strong id="cartSubtotalAmount">0</strong>
+        </div>
+        <div id="cartDeliveryRow" class="cart-total-row cart-delivery-row hidden">
+          <span id="cartDeliveryLabel">سعر التوصيل</span>
+          <strong id="cartDeliveryAmount">0</strong>
+        </div>
+        <p id="cartParcelNote" class="admin-note hidden" style="margin-top:8px">
+          ملاحظة: الطرد الواحد يحتوي على 20-15 علبة شوكولاتة أو سكاكر مشكلة.
+        </p>
+        <button id="submitOrderBtn" class="btn btn-primary full-btn" type="button" style="margin-top:20px">إرسال الطلب</button>
+        <p id="cartMessage" class="error-message hidden" style="margin-top:12px"></p>
+        <div class="receipt-footer" aria-hidden="true">
+          <div class="receipt-barcode"></div>
+          <p class="receipt-thanks">شكرًا لاختياركم العتماوي ✦</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Success Modal -->
+  <div class="modal-overlay" id="orderSuccessModal">
+    <div class="modal-box order-success-box">
+      <div class="modal-info" style="padding:28px 28px 30px;text-align:center">
+        <svg id="orderSuccessAnim" class="order-box-anim" viewBox="0 0 240 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="kraftBody" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#b8894f"/>
+              <stop offset="1" stop-color="#9a6d3a"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="120" cy="180" rx="72" ry="8" fill="rgba(0,0,0,0.12)"/>
+          <g class="ob-candies">
+            <circle class="ob-candy c1" cx="98" cy="118" r="9" fill="#e85d75"/>
+            <circle class="ob-candy c2" cx="122" cy="122" r="10" fill="#f2b632"/>
+            <circle class="ob-candy c3" cx="145" cy="118" r="9" fill="#4fc3b6"/>
+          </g>
+          <rect class="ob-body" x="62" y="96" width="116" height="80" rx="6" fill="url(#kraftBody)"/>
+          <rect class="ob-ribbon-h" x="62" y="128" width="116" height="14" fill="#b0302a"/>
+          <g class="ob-lid">
+            <rect x="56" y="80" width="128" height="22" rx="5" fill="#8a5f31"/>
+            <rect x="56" y="96" width="128" height="6" fill="rgba(0,0,0,0.12)"/>
+          </g>
+          <rect class="ob-ribbon-v" x="113" y="80" width="14" height="96" fill="#c4372f"/>
+          <g class="ob-bow">
+            <ellipse cx="104" cy="74" rx="16" ry="10" fill="#c4372f" transform="rotate(-18 104 74)"/>
+            <ellipse cx="136" cy="74" rx="16" ry="10" fill="#c4372f" transform="rotate(18 136 74)"/>
+            <circle cx="120" cy="78" r="7" fill="#9e2520"/>
+          </g>
+          <g class="ob-sparkles" fill="#e8c97a">
+            <path d="M44 60l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+            <path d="M196 52l2.5 5.5 5.5 2.5-5.5 2.5-2.5 5.5-2.5-5.5-5.5-2.5 5.5-2.5z"/>
+            <path d="M190 120l2 4 4 2-4 2-2 4-2-4-4-2 4-2z"/>
+          </g>
+        </svg>
+        <h3 class="order-success-title" id="orderSuccessTitle">تم إرسال طلبك 🎉</h3>
+        <p class="order-success-number">رقم الطلب: <strong id="orderSuccessNumber"></strong></p>
+        <p id="orderSuccessSummary" class="order-success-summary"></p>
+        <p class="admin-note" id="orderSuccessNote" style="margin-bottom:18px">رح نتواصل معك على الواتساب لتأكيد الطلب والتوصيل.</p>
+        <button id="orderSuccessOkBtn" class="btn btn-primary full-btn" type="button">تمام</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- My Orders Modal -->
+  <div class="modal-overlay" id="myOrdersModal">
+    <div class="modal-box" style="max-width:500px">
+      <button class="modal-close" id="myOrdersCloseBtn" type="button">✕</button>
+      <div class="modal-info" style="padding:32px 28px">
+        <h3 style="margin-bottom:20px">📦 طلباتي السابقة</h3>
+        <div id="myOrdersList" class="my-orders-list"></div>
+        <div id="myOrdersEmpty" class="empty-message hidden">ما في طلبات سابقة لسا</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Order Modal -->
+  <div class="modal-overlay" id="editOrderModal">
+    <div class="modal-box" style="max-width:480px">
+      <button class="modal-close" id="editOrderCloseBtn" type="button">✕</button>
+      <div class="modal-info" style="padding:32px 28px">
+        <h3 style="margin-bottom:8px">✏️ تعديل الطلب</h3>
+        <p class="admin-note" style="margin-bottom:20px">تقدر تزيد أو تنقص الكمية، تحذف منتج، أو تضيف منتجات جديدة. التعديل متاح بس لما تكون حالة الطلب "جديد".</p>
+        <div id="editOrderItemsList" class="cart-items-list"></div>
+
+        <button id="editOrderAddProductsBtn" class="btn btn-outline full-btn" type="button" style="margin-top:16px">➕ إضافة منتجات من القائمة</button>
+        <div id="editOrderEmpty" class="empty-message hidden">لازم يضل منتج واحد عالأقل بالطلب</div>
+        <div id="editOrderSubtotalRow" class="cart-total-row hidden">
+          <span>المبلغ المطلوب (غير شامل التوصيل)</span>
+          <strong id="editOrderSubtotalAmount">0</strong>
+        </div>
+        <p id="editOrderMessage" class="error-message hidden" style="margin-top:12px"></p>
+        <button id="saveEditOrderBtn" class="btn btn-primary full-btn" type="button" style="margin-top:16px">حفظ التعديلات</button>
+        <button id="cancelOrderBtn" class="btn btn-light full-btn" type="button" style="margin-top:10px;color:#a8281a">🗑️ إلغاء الطلب بالكامل</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-box">
+      <button class="modal-close" id="modalCloseBtn" type="button">✕</button>
+      <div class="modal-image-wrap">
+        <img id="modalImg" src="" alt="" />
+      </div>
+      <div class="modal-info">
+        <div id="modalBadge" class="modal-badge"></div>
+        <h3 id="modalName"></h3>
+        <p id="modalDesc" style="display:none"></p>
+        <button id="modalShareBtn" class="modal-share-btn" type="button">🔗 مشاركة المنتج</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastMsg" class="toast-msg"></div>
+
+  <script type="module" src="script.js?v=38"></script>
+  <script>
+    /* Animated Counters */
+    function animateCounter(el, target) {
+      let startTime = null;
+      const duration = 2000;
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 4);
+        const current = Math.floor(ease * target);
+        el.textContent = (target === 100 ? "" : "+") + current;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = (target === 100 ? "" : "+") + target;
+      }
+      requestAnimationFrame(step);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll("[data-target]").forEach(el => {
+            animateCounter(el, parseInt(el.dataset.target));
+          });
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+
+    const heroStats = document.querySelector(".hero-stats");
+    if (heroStats) counterObserver.observe(heroStats);
+
+    /* Service Worker */
+    // جوا التطبيق (Capacitor) الملفات أصلًا على الجهاز، فما في داعي لـ Service Worker
+    const isNativeApp = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === "function" && window.Capacitor.isNativePlatform());
+    if ("serviceWorker" in navigator && !isNativeApp) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+      });
+    }
+
+    /* ① Dark / Light Mode */
+    const themeBtn = document.getElementById("themeToggleBtn");
+    const savedTheme = localStorage.getItem("al-atmawi-theme") || "light";
+    function applyTheme(t) {
+      document.documentElement.setAttribute("data-theme", t);
+      themeBtn.textContent = t === "dark" ? "☀️" : "🌙";
+      localStorage.setItem("al-atmawi-theme", t);
+    }
+    applyTheme(savedTheme);
+    themeBtn.addEventListener("click", () => {
+      applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+    });
+
+    /* ② Copy Phone */
+    function showToast(msg) {
+      const t = document.getElementById("toastMsg");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2500);
+    }
+    document.getElementById("copyPhoneBtn").addEventListener("click", function() {
+      navigator.clipboard.writeText("+970593707760").then(() => {
+        showToast("✅ تم نسخ الرقم!");
+        this.textContent = "✅";
+        setTimeout(() => this.textContent = "📋", 2000);
+      }).catch(() => showToast("❌ فشل النسخ"));
+    });
+
+    /* ③ Share Product */
+    document.getElementById("modalShareBtn").addEventListener("click", function() {
+      const name = document.getElementById("modalName").textContent;
+      const badge = document.getElementById("modalBadge").textContent;
+      const text = name + (badge ? " — " + badge : "") + "\nمن Al-Atmawi Sweets 🍫";
+      const shareUrl = location.href; // الرابط الحين فيه ?product=ID تلقائياً
+      if (navigator.share) {
+        navigator.share({ title: name, text: text, url: shareUrl });
+      } else {
+        navigator.clipboard.writeText(text + "\n" + shareUrl).then(() => {
+          showToast("✅ تم نسخ رابط المنتج!");
+          this.textContent = "✅ تم النسخ";
+          setTimeout(() => this.textContent = "🔗 مشاركة المنتج", 2000);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
