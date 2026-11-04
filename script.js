@@ -1391,7 +1391,7 @@ function formatOrderNumber(orderId) {
 
 const orderSuccessTitle = document.getElementById("orderSuccessTitle");
 const orderSuccessWhatsApp = document.getElementById("orderSuccessWhatsApp");
-const SHOP_WHATSAPP = "970593707760";
+const SHOP_WHATSAPP = "970569489862";
 
 /* رسالة واتساب جاهزة بيبعتها الزبون للمحل لتأكيد طلبه (بكبسة وحدة) */
 function buildOrderWhatsAppLink(orderId, items, subtotal, deliveryFee) {
@@ -1800,7 +1800,7 @@ function renderSearchResults() {
       <div class="empty-message search-empty">
         <div class="search-empty-icon">🔍</div>
         ما في منتج بهالاسم حاليًا.<br>
-        <a class="link-btn" href="https://wa.me/970593707760?text=${encodeURIComponent("مرحبا، بدور على منتج: " + productSearchTerm.trim())}" target="_blank" rel="noopener">اسألنا عنه على الواتساب</a>
+        <a class="link-btn" href="https://wa.me/${SHOP_WHATSAPP}?text=${encodeURIComponent("مرحبا، بدور على منتج: " + productSearchTerm.trim())}" target="_blank" rel="noopener">اسألنا عنه على الواتساب</a>
       </div>`;
     return;
   }
