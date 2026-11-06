@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>لوحة الأدمن - Al-Atmawi Sweets</title>
-  <link rel="stylesheet" href="style.css?v=21" />
+  <link rel="stylesheet" href="style.css?v=22" />
 </head>
 <body class="admin-page-body">
 
@@ -197,6 +197,10 @@
               <h3>📦 الطلبات <span id="ordersCountBadge" class="admin-count-badge hidden">0</span></h3>
               <button id="refreshOrdersBtn" class="btn btn-light" type="button">تحديث</button>
             </div>
+            <div class="orders-tabs" role="tablist" aria-label="تصنيف الطلبات">
+              <button type="button" class="orders-tab active" data-orders-tab="open" role="tab" aria-selected="true">🕒 قيد التنفيذ <span class="orders-tab-count" id="ordersOpenCount">0</span></button>
+              <button type="button" class="orders-tab" data-orders-tab="done" role="tab" aria-selected="false">✅ المكتملة <span class="orders-tab-count" id="ordersDoneCount">0</span></button>
+            </div>
             <div class="form-group" style="margin-bottom:16px">
               <input type="search" id="adminOrdersSearch" placeholder="🔍 ابحث باسم الزبون أو رقم الطلب..." />
             </div>
@@ -234,7 +238,7 @@
     </div>
   </div>
 
-  <script type="module" src="admin.js?v=25"></script>
+  <script type="module" src="admin.js?v=26"></script>
   <script>
     /* Confirm Modal Helper */
     window.showConfirmModal = function(title, msg) {

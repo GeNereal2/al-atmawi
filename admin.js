@@ -77,6 +77,8 @@ let productSearchTerm = "";
 let allOrders = [];
 let ordersLoading = false;
 let orderSearchTerm = "";
+let ordersTab = "open"; // open = قيد التنفيذ ، done = المكتملة
+const isOrderDone = order => order.status === "مكتمل";
 
 /* Auth */
 const loginBox = document.getElementById("loginBox");
@@ -115,6 +117,9 @@ const adminOrdersList = document.getElementById("adminOrdersList");
 const adminOrdersSearchInput = document.getElementById("adminOrdersSearch");
 const refreshOrdersBtn = document.getElementById("refreshOrdersBtn");
 const ordersCountBadge = document.getElementById("ordersCountBadge");
+const ordersOpenCount = document.getElementById("ordersOpenCount");
+const ordersDoneCount = document.getElementById("ordersDoneCount");
+const ordersTabButtons = document.querySelectorAll("[data-orders-tab]");
 
 /* =========================
    Confirm Modal
@@ -978,20 +983,35 @@ function renderOrdersList() {
     }
   }
 
+  const doneCount = allOrders.filter(isOrderDone).length;
+  if (ordersOpenCount) ordersOpenCount.textContent = allOrders.length - doneCount;
+  if (ordersDoneCount) ordersDoneCount.textContent = doneCount;
+  ordersTabButtons.forEach(btn => {
+    const active = btn.dataset.ordersTab === ordersTab;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-selected", active ? "true" : "false");
+  });
+
   if (ordersLoading && !allOrders.length) {
     adminOrdersList.innerHTML = `<div class="empty-message">جاري تحميل الطلبات...</div>`;
     return;
   }
 
+  // كل قائمة لحالها: قيد التنفيذ (جديد + تم التواصل) أو المكتملة
+  const tabOrders = allOrders.filter(o => (ordersTab === "done") === isOrderDone(o));
+
   const term = orderSearchTerm.trim().toLowerCase();
   const filtered = term
-    ? allOrders.filter(o =>
+    ? tabOrders.filter(o =>
         (o.customerName || "").toLowerCase().includes(term) ||
         String(o.id).slice(-6).toLowerCase().includes(term.replace("#", "")))
-    : allOrders;
+    : tabOrders;
 
   if (!filtered.length) {
-    adminOrdersList.innerHTML = `<div class="empty-message">${term ? "ما في طلبات مطابقة للبحث" : "لا توجد طلبات حاليًا"}</div>`;
+    const emptyText = term
+      ? "ما في طلبات مطابقة للبحث بهاي القائمة"
+      : (ordersTab === "done" ? "ما في طلبات مكتملة لهلأ" : "ما في طلبات قيد التنفيذ 👌");
+    adminOrdersList.innerHTML = `<div class="empty-message">${emptyText}</div>`;
     return;
   }
 
@@ -1068,6 +1088,14 @@ if (adminOrdersSearchInput) {
     renderOrdersList();
   });
 }
+
+ordersTabButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (ordersTab === btn.dataset.ordersTab) return;
+    ordersTab = btn.dataset.ordersTab;
+    renderOrdersList();
+  });
+});
 
 if (refreshOrdersBtn) {
   refreshOrdersBtn.addEventListener("click", () => loadOrders());
